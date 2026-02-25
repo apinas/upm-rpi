@@ -1,19 +1,24 @@
 \section{Git Basics}
+\begin{frame}{Brief Recap}
+  \begin{columns}[T]
+  
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \item Clone a repository (\texttt{git clone})
+        \item Create and edit files
+        \item Stage changes (\texttt{git add})
+        \item Commit changes (\texttt{git commit})
+        \item Upload changes to the remote repository (\texttt{git push})
+        \item Download the latest changes from the repository (\texttt{git pull})
+      \end{itemize}
+    \end{column}
 
-\begin{frame}{What Do We Know So Far?}
-  \begin{itemize}
-    \item Initialize a repository
-    \item Clone a repository
-    \item Save changes (commit)
-    \item Upload changes to the remote repository (push)
-    \item Download the latest changes from the repository (pull)
-    \item What else to acquire?
-    \begin{itemize}
-        \item Create a branch
-        \item Switch to branch
-        \item Merge branches and solve conflicts
-    \end{itemize}
-  \end{itemize}
+
+    \begin{column}{0.4\textwidth}
+      \centering
+      \includegraphics[width=0.9\linewidth]{trainingmaterials/git-II/repo.png}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \section{Branching in Git}
@@ -40,37 +45,41 @@
       \begin{itemize}
         \item \texttt{git checkout -b <branch\_name>}
       \end{itemize}
-    \item To switch to an existing branch:
-      \begin{itemize}
-        \item \texttt{git checkout <branch\_name>}
-      \end{itemize}
     \item Remember to specify the branch name when pushing:
       \begin{itemize}
         \item \texttt{git push origin <branch\_name>}
       \end{itemize}
-    \item Useful command to check the current branch and working area status:
+    \item To switch to between branch:
       \begin{itemize}
-        \item \texttt{git status}
+        \item \texttt{git checkout <branch\_name>}
       \end{itemize}
-    \item Useful command to check the history of a branch:
+    \item To list all branches:
       \begin{itemize}
-        \item \texttt{git log}
+        \item \texttt{git branch}
       \end{itemize}
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Using Branches Example}
-  \centering
-  \includegraphics[width=0.75\linewidth]{trainingmaterials/git-II/git_status_main.png}
-  \includegraphics[width=0.75\linewidth]{trainingmaterials/git-II/git_log_main.png}
-  \includegraphics[width=0.75\linewidth]{trainingmaterials/git-II/git_new_branch_devel.png}
+\begin{frame}{Useful Commands}
+  \begin{itemize}
+    \item Check the current branch and the status of your working directory:
+      \begin{itemize}
+        \item \texttt{git status}
+      \end{itemize}
+      \centering
+      \includegraphics[width=1\linewidth]{trainingmaterials/git-II/git_status.png}
+  \end{itemize}
 \end{frame}
 
-
-\begin{frame}{Using Branches Example II}
-  \centering
-  \includegraphics[width=0.75\linewidth]{trainingmaterials/git-II/git_new_branch_feature1.png}
-  \includegraphics[width=0.75\linewidth]{trainingmaterials/git-II/git_log_feature.png}
+\begin{frame}{Useful Commands II} 
+  \begin{itemize}
+    \item Check the history of the branch:
+      \begin{itemize}
+        \item \texttt{git log}
+      \end{itemize}
+      \centering
+      \includegraphics[width=1\linewidth]{trainingmaterials/git-II/git_log.png}
+  \end{itemize}
 \end{frame}
 
 \section{Merging and Conflict Resolution}
@@ -84,24 +93,29 @@
             \item Update \texttt{devel} branch: \texttt{git pull origin devel}
             \item Merge your branch into \texttt{devel}: \texttt{git merge <branch\_name>}
       \end{enumerate}
+    \item Git will automatically determines how to merge the changes.
   \end{itemize}
-  
-  \centering
-  \includegraphics[width=0.75\linewidth]{trainingmaterials/git-II/git_merge_conflict.png}
 \end{frame}
 
 \begin{frame}{Handling Conflicts}
   \begin{itemize}
-    \item Git automatically merges changes, but conflicts can occur when:
-      \begin{itemize}
-        \item Different developers make changes in the same place of a document.
-      \end{itemize}
+    \item When two branches have changes in the same part of the same file, Git cannot automatically merge them.
+    \item This is called a \textbf{conflict}.
+    \item The developer must manually resolve the conflict.
   \end{itemize}
   \centering
-  \includegraphics[width=0.5\linewidth]{trainingmaterials/git-II/conflict.png}
+  \includegraphics[width=1\linewidth]{trainingmaterials/git-II/conflict.png}
 \end{frame}
 
 \begin{frame}{Handling Conflicts II}
+  \begin{itemize}
+    \item Git marks the conflicting areas in the file with special markers:
+  \end{itemize}
+  \centering
+  \includegraphics[width=1\linewidth]{trainingmaterials/git-II/conflict_code.png}
+\end{frame}
+
+\begin{frame}{Handling Conflicts III}
   \begin{itemize}
     \item To resolve conflicts:
       \begin{enumerate}
@@ -120,23 +134,34 @@
   \includegraphics[width=1\linewidth]{trainingmaterials/git-II/meld.png}
 \end{frame}
 
+\begin{frame}{Handling Conflicts IV}
+  \begin{itemize}
+    \item If you are using VSCode, you can use the built-in merge tool to resolve conflicts:
+  \end{itemize}
+  \centering
+  \includegraphics[width=1\linewidth]{trainingmaterials/git-II/conflict_vscode.png}
+\end{frame}
+
 \begin{frame}{Best Practices}
   \begin{itemize}
     \item Use a Git cheatsheet for quick reference: \href{https://ndpsoftware.com/git-cheatsheet.html}{"Git Cheatsheet"}
+    \item Create atomic commits that focus on a single change or feature.
+    \begin{itemize}
+      \item Do not change the whole code in a single commit.
+    \end{itemize}
+    \item Write meaningful commit messages.
+    \begin{itemize}
+      \item First line: Brief summary. \href{https://www.conventionalcommits.org}{"Conventional Commits"} e.g.:
+        \begin{itemize}
+          \item \texttt{feat: add data conversion function}
+          \item \texttt{fix: correct sensor initialization}
+        \end{itemize}
+      \item Following lines: Detailed explanation of changes (if required).
+    \end{itemize}
+    \item Do not keep your changes locally, push them.
     \item Before pulling or pushing, synchronize your local repository index with the remote using:
       \begin{itemize}
         \item \texttt{git fetch}
-      \end{itemize}
-    \item Merge \texttt{devel} into your branch before merging your branch into \texttt{devel} to:
-      \begin{itemize}
-        \item Fix conflicts.
-        \item Test that everything works as expected.
-        \item Ensure a conflict-free merge into \texttt{devel}.
-      \end{itemize}
-    \item Write meaningful commit messages:
-      \begin{itemize}
-        \item First line: Brief summary.
-        \item Following lines: Detailed explanation of changes (if required).
       \end{itemize}
     \item Push only tested code to \texttt{devel} and stable versions to \texttt{main}.
   \end{itemize}
@@ -180,13 +205,16 @@
         \item \texttt{git fetch}
         \item \texttt{git pull origin devel}
       \end{itemize}
-    \item Merge \texttt{devel} into your feature branch:
+    \item Run the merge:
       \begin{itemize}
-        \item \texttt{git checkout <feature\_branch>}
-        \item \texttt{git merge devel}
+        \item \texttt{git merge <feature\_branch>}
       \end{itemize}
-    \item Resolve conflicts
+    \item Resolve conflicts, if any
    \end{itemize}
+\end{frame}
+
+\begin{frame}{Using Git in VSCode}
+  \includegraphics[width=1\linewidth]{trainingmaterials/git-II/vscode_git.png}
 \end{frame}
  
 
